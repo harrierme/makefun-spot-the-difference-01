@@ -1,0 +1,224 @@
+/* SELISIH — flat dusk theme. All layout and colour lives here; the scenes
+   themselves are drawn on canvas by scenes.js. */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { height: 100%; }
+
+body {
+  background: #171226 radial-gradient(1200px 600px at 50% -10%, #2c2140 0%, #171226 60%);
+  color: #f3ead8;
+  font-family: "Segoe UI", Verdana, Geneva, sans-serif;
+  display: flex;
+  justify-content: center;
+}
+
+#app {
+  width: 1240px;
+  max-width: 96vw;
+  padding: 14px 10px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ---------- header / HUD ---------- */
+#hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  background: #241c38;
+  border: 1px solid #4a3a68;
+  border-radius: 12px;
+  padding: 8px 16px;
+}
+
+.brand { display: flex; align-items: baseline; gap: 8px; }
+.brand-mark { color: #ffc857; font-size: 26px; line-height: 1; }
+.brand-name { font-size: 26px; font-weight: 800; letter-spacing: 4px; color: #ffd97a; }
+.brand-sub { font-size: 12px; letter-spacing: 2px; color: #b9a8d6; text-transform: uppercase; }
+
+.hud-mid { display: flex; align-items: center; gap: 16px; flex: 1; justify-content: center; }
+.level-label { text-align: center; line-height: 1.15; }
+#levelName { display: block; font-size: 17px; font-weight: 700; color: #ffe9b0; }
+#levelNum { font-size: 11px; letter-spacing: 2px; color: #b9a8d6; }
+
+.timer-wrap {
+  position: relative;
+  width: 220px;
+  height: 26px;
+  background: #120e1d;
+  border: 1px solid #4a3a68;
+  border-radius: 13px;
+  overflow: hidden;
+}
+#timerBar {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #37c978, #ffc857);
+  transition: width 0.2s linear;
+}
+#timerBar.low { background: linear-gradient(90deg, #e63946, #ff7a5c); }
+#timerText {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 14px;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+.hud-right { display: flex; align-items: center; gap: 10px; }
+.counter, .score, .hints {
+  background: #120e1d;
+  border: 1px solid #4a3a68;
+  border-radius: 9px;
+  padding: 6px 10px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #b9a8d6;
+}
+.counter b, .score b, .hints b { color: #fff; font-size: 15px; }
+.counter { border-color: #ffc857; color: #ffd97a; }
+.counter b { color: #ffd97a; font-size: 20px; }
+
+/* ---------- stage ---------- */
+#stage {
+  position: relative;
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+}
+.panel { display: flex; flex-direction: column; gap: 5px; }
+.panel-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #b9a8d6;
+  text-align: center;
+}
+canvas {
+  display: block;
+  width: 560px;
+  height: 420px;
+  border-radius: 10px;
+  border: 2px solid #4a3a68;
+  background: #0f0b18;
+  cursor: crosshair;
+}
+canvas.shake { animation: shake 0.25s ease-in-out; }
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+#floatLayer { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.float-text {
+  position: absolute;
+  font-weight: 800;
+  font-size: 20px;
+  color: #7dff9e;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  animation: floatUp 1s ease-out forwards;
+}
+.float-text.bad { color: #ff8a7a; }
+@keyframes floatUp {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-34px); }
+}
+
+/* ---------- footer ---------- */
+#controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: #241c38;
+  border: 1px solid #4a3a68;
+  border-radius: 12px;
+  padding: 8px 12px;
+}
+.level-dots { display: flex; gap: 8px; }
+.dot {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid #4a3a68;
+  background: #171226;
+  color: #b9a8d6;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dot.active { background: #ffc857; border-color: #ffc857; color: #241c38; }
+.dot.done { background: #37c978; border-color: #37c978; color: #0f2417; }
+.buttons { display: flex; gap: 8px; }
+button {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  color: #f3ead8;
+  background: #372b52;
+  border: 1px solid #5b4a80;
+  border-radius: 8px;
+  padding: 7px 14px;
+  cursor: pointer;
+}
+button:hover { background: #463767; }
+button.primary { background: #ffc857; border-color: #ffc857; color: #241c38; }
+button.primary:hover { background: #ffd97a; }
+button:disabled { opacity: 0.45; cursor: default; }
+kbd {
+  font-family: inherit;
+  font-size: 11px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 4px;
+  padding: 1px 5px;
+  margin-left: 4px;
+}
+.legend { font-size: 12px; color: #b9a8d6; }
+
+/* ---------- overlay ---------- */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(12, 8, 22, 0.82);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+.overlay.show { display: flex; }
+.overlay-card {
+  width: 620px;
+  max-width: 92vw;
+  background: #241c38;
+  border: 1px solid #6b5594;
+  border-radius: 16px;
+  padding: 28px 32px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+.overlay-card h1 {
+  font-size: 52px;
+  letter-spacing: 10px;
+  color: #ffd97a;
+  margin-bottom: 6px;
+}
+.overlay-card h2 { font-size: 26px; color: #ffe9b0; margin-bottom: 8px; }
+.tagline { font-size: 16px; color: #e8dcff; margin-bottom: 16px; }
+.howto { text-align: left; margin: 0 auto 20px; width: fit-content; font-size: 14px; line-height: 1.6; color: #d9cdf0; }
+.howto li { margin-bottom: 6px; }
+.howto b { color: #ffd97a; }
+.big { font-size: 18px; padding: 12px 28px; }
+.keys { margin-top: 14px; font-size: 12px; color: #b9a8d6; }
+.big-stat { font-size: 20px; margin: 10px 0; color: #ffe9b0; }
+.big-stat b { color: #ffd97a; }

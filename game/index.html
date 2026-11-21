@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SELISIH — Spot the Difference</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="app">
+  <header id="hud">
+    <div class="brand">
+      <span class="brand-mark">◐</span>
+      <span class="brand-name">SELISIH</span>
+      <span class="brand-sub">spot the difference</span>
+    </div>
+    <div class="hud-mid">
+      <div class="level-label"><span id="levelName">Pasar Lentera</span><span id="levelNum">Level 1 / 3</span></div>
+      <div class="timer-wrap">
+        <div id="timerBar"></div>
+        <span id="timerText">120</span>
+      </div>
+    </div>
+    <div class="hud-right">
+      <div class="counter" id="remainCounter" title="Perbedaan yang belum ditemukan">SISA <b id="remainNum">5</b></div>
+      <div class="score">SKOR <b id="scoreNum">0</b></div>
+      <div class="hints">PETUNJUK <b id="hintNum">3</b></div>
+    </div>
+  </header>
+
+  <main id="stage">
+    <section class="panel">
+      <div class="panel-tag">KIRI</div>
+      <canvas id="canvasLeft" width="560" height="420"></canvas>
+    </section>
+    <section class="panel">
+      <div class="panel-tag">KANAN</div>
+      <canvas id="canvasRight" width="560" height="420"></canvas>
+    </section>
+    <div id="floatLayer"></div>
+  </main>
+
+  <footer id="controls">
+    <div class="level-dots" id="levelDots">
+      <span class="dot active" data-level="0">1</span>
+      <span class="dot" data-level="1">2</span>
+      <span class="dot" data-level="2">3</span>
+    </div>
+    <div class="buttons">
+      <button id="btnHint" type="button">💡 Petunjuk <kbd>H</kbd></button>
+      <button id="btnRestart" type="button">↺ Ulangi Level <kbd>R</kbd></button>
+      <button id="btnSound" type="button">🔊 Suara <kbd>M</kbd></button>
+      <button id="btnStart" type="button" class="primary">▶ Mulai</button>
+    </div>
+    <p class="legend">Klik perbedaan di panel kiri ATAU kanan · klik yang salah mengurangi waktu · petunjuk terbatas</p>
+  </footer>
+
+  <div id="overlay" class="overlay show">
+    <div class="overlay-card">
+      <h1>SELISIH</h1>
+      <p class="tagline">Dua gambar hampir sama. Temukan semua bedanya sebelum waktu habis.</p>
+      <ul class="howto">
+        <li><b>3 malam, 21 beda.</b> Pasar lentera, taman kucing, lalu dermaga bintang — makin malam makin sulit.</li>
+        <li><b>Klik</b> bedanya di panel kiri atau kanan. Lingkaran hijau menandai yang sudah ketemu.</li>
+        <li><b>H</b> minta petunjuk (terbatas). Klik salah memotong waktu 3 detik. Temuan memberi bonus waktu 2 detik.</li>
+      </ul>
+      <button id="btnPlay" type="button" class="primary big">▶ Mainkan</button>
+      <p class="keys">Keyboard: H petunjuk · R ulangi level · M suara · N level berikut · Enter mulai</p>
+    </div>
+  </div>
+</div>
+<script src="audio.js"></script>
+<script src="scenes.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
